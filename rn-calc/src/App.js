@@ -11,6 +11,7 @@ export default function App() {
         color={'red'}
         onPress={() => console.log('click!')}
       />
+      <Button />
 
       <StatusBar style="auto" />
     </View>
