@@ -1,17 +1,27 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Button from './components/Button';
+import { StyleSheet, View } from 'react-native';
+import Button, { ButtonTypes } from './components/Button';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>RN Calc App</Text>
       <Button
-        title="button"
-        color={'red'}
-        onPress={() => console.log('click!')}
+        title="1"
+        onPress={() => {}}
+        buttonStyle={{ width: 100, height: 100 }}
+        buttonType={ButtonTypes.NUMBER}
       />
-      <Button />
+      <Button
+        title="0"
+        onPress={() => {}}
+        buttonStyle={{ width: 200, height: 100 }}
+      />
+      <Button
+        title="="
+        onPress={() => {}}
+        buttonStyle={{ width: 100, height: 100 }}
+        buttonType={ButtonTypes.OPERATOR}
+      />
 
       <StatusBar style="auto" />
     </View>
@@ -24,10 +34,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  text: {
-    fontSize: 30,
-    fontWeight: '700',
-    color: 'green',
   },
 });

@@ -1,30 +1,52 @@
-import { Pressable, Text } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
-const Button = ({ title }) => {
+export const ButtonTypes = {
+  NUMBER: 'NUMBER',
+  OPERATOR: 'OPERATOR',
+};
+
+const Colors = {
+  NUMBER: ['#71717a', '#3f3f46'],
+  OPERATOR: ['#f59e0b', '#b45309'],
+};
+
+const Button = ({ title, onPress, buttonStyle, buttonType }) => {
   return (
     <Pressable
-      onPressIn={() => console.log('In')}
-      onPressOut={() => console.log('Out')}
-      onPress={() => console.log('onPress')}
-      onLongPress={() => console.log('Long')}
-      delayLongPress={2000}
+      onPress={onPress}
       style={({ pressed }) => [
-        { backgroundColor: 'red' },
-        pressed && { backgroundColor: 'orange', opacity: 0.3 },
+        styles.button,
+        { backgroundColor: Colors[buttonType][0] },
+        pressed && { backgroundColor: Colors[buttonType][1] },
+        buttonStyle,
       ]}
     >
-      <Text>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
 };
 
 Button.defaultProps = {
-  title: 'Default',
+  buttonType: ButtonTypes.NUMBER,
 };
 
 Button.propTypes = {
   title: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+  buttonStyle: PropTypes.object,
+  buttonType: PropTypes.oneOf(Object.values(ButtonTypes)),
 };
+
+const styles = StyleSheet.create({
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 50,
+    color: '#ffffff',
+  },
+});
 
 export default Button;
