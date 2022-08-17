@@ -12,6 +12,7 @@ const Colors = {
 };
 
 const Button = ({ title, onPress, buttonStyle, buttonType }) => {
+  console.log('re-rendering');
   return (
     <Pressable
       onPress={onPress}
