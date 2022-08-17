@@ -5,36 +5,20 @@ import Button, { ButtonTypes } from './components/Button';
 
 export default function App() {
   const [result, setResult] = useState(0);
-  console.log('rendering: ', result);
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 60 }}>{result}</Text>
+      <View style={styles.resultContainer}>
+        <Text style={styles.result}>{result}</Text>
+      </View>
 
-      <Button
-        title="+"
-        onPress={() => {
-          setResult((prev) => {
-            console.log('1 setResult: ', prev);
-            return prev + 1;
-          });
-          setResult((prev) => {
-            console.log('2 setResult: ', prev);
-            return prev + 1;
-          });
-        }}
-        buttonStyle={{ width: 100, height: 100, marginBottom: 10 }}
-        buttonType={ButtonTypes.OPERATOR}
-      />
-      <Button
-        title="-"
-        onPress={() => {
-          setResult(result - 1);
-          console.log(result);
-        }}
-        buttonStyle={{ width: 100, height: 100 }}
-        buttonType={ButtonTypes.OPERATOR}
-      />
+      <View style={styles.buttonContainer}>
+        <Text>button</Text>
+      </View>
+
+      <View style={{ flex: 2, backgroundColor: 'gray' }}>
+        <Text>view</Text>
+      </View>
 
       <StatusBar style="auto" />
     </View>
@@ -44,8 +28,22 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  resultContainer: {
+    flex: 1,
+    backgroundColor: '#000000',
+  },
+  buttonContainer: {
+    flex: 2,
+    backgroundColor: 'skyblue',
+  },
+  result: {
+    color: '#ffffff',
+    fontSize: 60,
+    fontWeight: '700',
   },
 });
