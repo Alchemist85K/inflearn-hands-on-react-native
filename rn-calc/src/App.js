@@ -5,6 +5,7 @@ import Button, { ButtonTypes } from './components/Button';
 
 export default function App() {
   const [result, setResult] = useState(0);
+  console.log('rendering: ', result);
 
   return (
     <View style={styles.container}>
@@ -13,8 +14,14 @@ export default function App() {
       <Button
         title="+"
         onPress={() => {
-          setResult(result + 1);
-          console.log(result);
+          setResult((prev) => {
+            console.log('1 setResult: ', prev);
+            return prev + 1;
+          });
+          setResult((prev) => {
+            console.log('2 setResult: ', prev);
+            return prev + 1;
+          });
         }}
         buttonStyle={{ width: 100, height: 100, marginBottom: 10 }}
         buttonType={ButtonTypes.OPERATOR}
