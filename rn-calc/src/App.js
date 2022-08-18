@@ -16,10 +16,6 @@ export default function App() {
         <Text>button</Text>
       </View>
 
-      <View style={{ flex: 2, backgroundColor: 'gray' }}>
-        <Text>view</Text>
-      </View>
-
       <StatusBar style="auto" />
     </View>
   );
@@ -28,22 +24,26 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'stretch',
     justifyContent: 'center',
+    backgroundColor: '#ffffff',
   },
   resultContainer: {
     flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
     backgroundColor: '#000000',
   },
   buttonContainer: {
-    flex: 2,
+    flex: 1,
     backgroundColor: 'skyblue',
   },
   result: {
     color: '#ffffff',
     fontSize: 60,
     fontWeight: '700',
+    paddingBottom: 30,
+    paddingRight: 30,
   },
 });
