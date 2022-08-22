@@ -3,7 +3,11 @@ import { Image, StyleSheet, View } from 'react-native';
 const SignInScreen = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/test.png')} style={styles.image} />
+      <Image
+        source={require('../../assets/main.png')}
+        style={styles.image}
+        resizeMode={'cover'}
+      />
     </View>
   );
 };
