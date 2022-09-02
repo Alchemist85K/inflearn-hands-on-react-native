@@ -1,23 +1,30 @@
 import { Image, StyleSheet, View } from 'react-native';
 import Input, { KeyboardTypes, ReturnKeyTypes } from '../components/Input';
+import SafeInputView from '../components/SafeInputView';
 
 const SignInScreen = () => {
   return (
-    <View style={styles.container}>
-      <Image
-        source={require('../../assets/main.png')}
-        style={styles.image}
-        resizeMode={'cover'}
-      />
+    <SafeInputView>
+      <View style={styles.container}>
+        <Image
+          source={require('../../assets/main.png')}
+          style={styles.image}
+          resizeMode={'cover'}
+        />
 
-      <Input
-        title={'email'}
-        placeholder={'your@email.com'}
-        keyboardType={KeyboardTypes.EMAIL}
-        returnKeyType={ReturnKeyTypes.NEXT}
-      />
-      <Input title={'password'} secureTextEntry placeholderTextColor={'red'} />
-    </View>
+        <Input
+          title={'email'}
+          placeholder={'your@email.com'}
+          keyboardType={KeyboardTypes.EMAIL}
+          returnKeyType={ReturnKeyTypes.NEXT}
+        />
+        <Input
+          title={'password'}
+          secureTextEntry
+          placeholderTextColor={'red'}
+        />
+      </View>
+    </SafeInputView>
   );
 };
 
