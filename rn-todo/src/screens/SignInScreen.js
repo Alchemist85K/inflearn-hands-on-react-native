@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Image, Keyboard, StyleSheet, View } from 'react-native';
 import Button from '../components/Button';
 import Input, {
@@ -12,7 +12,11 @@ const SignInScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const passwordRef = useRef(null);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    setDisabled(!email || !password);
+  }, [email, password]);
 
   const onSubmit = () => {
     if (!disabled) {
