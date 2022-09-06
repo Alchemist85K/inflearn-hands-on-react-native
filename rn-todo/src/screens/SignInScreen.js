@@ -9,7 +9,7 @@ import Input, {
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
 
-const SignInScreen = () => {
+const SignInScreen = ({ navigation, route }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const passwordRef = useRef(null);
@@ -25,9 +25,9 @@ const SignInScreen = () => {
       Keyboard.dismiss();
       setIsLoading(true);
       try {
-        const data = await signIn(email, password);
-        console.log(data);
+        await signIn(email, password);
         setIsLoading(false);
+        navigation.navigate('List');
       } catch (e) {
         Alert.alert('SignIn Failed', e, [
           {
