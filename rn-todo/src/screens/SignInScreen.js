@@ -8,8 +8,9 @@ import Input, {
   ReturnKeyTypes,
 } from '../components/Input';
 import SafeInputView from '../components/SafeInputView';
+import PropTypes from 'prop-types';
 
-const SignInScreen = ({ navigation, route }) => {
+const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const passwordRef = useRef(null);
@@ -79,6 +80,10 @@ const SignInScreen = ({ navigation, route }) => {
       </View>
     </SafeInputView>
   );
+};
+
+SignInScreen.propTypes = {
+  navigation: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
