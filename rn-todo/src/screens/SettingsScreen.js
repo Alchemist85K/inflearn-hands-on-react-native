@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-const ListScreen = () => {
+const SettingsScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 30 }}>ListScreen</Text>
+      <Text style={{ fontSize: 30 }}>SettingsScreen</Text>
     </View>
   );
 };
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListScreen;
+export default SettingsScreen;
