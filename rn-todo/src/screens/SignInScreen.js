@@ -10,7 +10,7 @@ import Input, {
 import SafeInputView from '../components/SafeInputView';
 import PropTypes from 'prop-types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import UserContext from '../contexts/UserContext';
+import { useUserContext } from '../contexts/UserContext';
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('');
@@ -21,11 +21,13 @@ const SignInScreen = () => {
 
   const insets = useSafeAreaInsets();
 
+  const { setUser } = useUserContext();
+
   useEffect(() => {
     setDisabled(!email || !password);
   }, [email, password]);
 
-  const onSubmit = async (setUser) => {
+  const onSubmit = async () => {
     if (!disabled && !isLoading) {
       Keyboard.dismiss();
       setIsLoading(true);
@@ -45,55 +47,49 @@ const SignInScreen = () => {
   };
 
   return (
-    <UserContext.Consumer>
-      {({ setUser }) => {
-        return (
-          <SafeInputView>
-            <View
-              style={[
-                styles.container,
-                { paddingTop: insets.top, paddingBottom: insets.bottom },
-              ]}
-            >
-              <Image
-                source={require('../../assets/main.png')}
-                style={styles.image}
-                resizeMode={'cover'}
-              />
+    <SafeInputView>
+      <View
+        style={[
+          styles.container,
+          { paddingTop: insets.top, paddingBottom: insets.bottom },
+        ]}
+      >
+        <Image
+          source={require('../../assets/main.png')}
+          style={styles.image}
+          resizeMode={'cover'}
+        />
 
-              <Input
-                value={email}
-                onChangeText={(text) => setEmail(text.trim())}
-                title={'email'}
-                placeholder={'your@email.com'}
-                keyboardType={KeyboardTypes.EMAIL}
-                returnKeyType={ReturnKeyTypes.NEXT}
-                iconName={IconNames.EMAIL}
-                onSubmitEditing={() => passwordRef.current.focus()}
-              />
-              <Input
-                ref={passwordRef}
-                value={password}
-                onChangeText={(text) => setPassword(text.trim())}
-                title={'password'}
-                secureTextEntry
-                iconName={IconNames.PASSWORD}
-                onSubmitEditing={() => onSubmit(setUser)}
-              />
+        <Input
+          value={email}
+          onChangeText={(text) => setEmail(text.trim())}
+          title={'email'}
+          placeholder={'your@email.com'}
+          keyboardType={KeyboardTypes.EMAIL}
+          returnKeyType={ReturnKeyTypes.NEXT}
+          iconName={IconNames.EMAIL}
+          onSubmitEditing={() => passwordRef.current.focus()}
+        />
+        <Input
+          ref={passwordRef}
+          value={password}
+          onChangeText={(text) => setPassword(text.trim())}
+          title={'password'}
+          secureTextEntry
+          iconName={IconNames.PASSWORD}
+          onSubmitEditing={onSubmit}
+        />
 
-              <View style={styles.buttonContainer}>
-                <Button
-                  title={'LOGIN'}
-                  onPress={() => onSubmit(setUser)}
-                  disabled={disabled}
-                  isLoading={isLoading}
-                />
-              </View>
-            </View>
-          </SafeInputView>
-        );
-      }}
-    </UserContext.Consumer>
+        <View style={styles.buttonContainer}>
+          <Button
+            title={'LOGIN'}
+            onPress={onSubmit}
+            disabled={disabled}
+            isLoading={isLoading}
+          />
+        </View>
+      </View>
+    </SafeInputView>
   );
 };
 
