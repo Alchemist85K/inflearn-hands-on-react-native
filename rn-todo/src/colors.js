@@ -14,5 +14,6 @@ export const DANGER = {
 };
 
 export const GRAY = {
+  LIGHT: '#e5e5e5',
   DEFAULT: '#a3a3a3',
 };
