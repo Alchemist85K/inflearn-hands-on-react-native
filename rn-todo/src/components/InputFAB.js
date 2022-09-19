@@ -1,5 +1,6 @@
 import {
   Keyboard,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -7,7 +8,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { PRIMARY, WHITE } from '../colors';
+import { BLACK, PRIMARY, WHITE } from '../colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useRef, useState } from 'react';
 
@@ -51,6 +52,7 @@ const InputFAB = () => {
       <View
         style={[
           styles.container,
+          styles.shadow,
           { bottom: keyboardHeight, alignItems: 'flex-start' },
           isOpened && { width: windowWidth - 20 },
         ]}
@@ -73,6 +75,7 @@ const InputFAB = () => {
         onPress={onPressButton}
         style={({ pressed }) => [
           styles.container,
+          // styles.shadow,
           { bottom: keyboardHeight },
           pressed && { backgroundColor: PRIMARY.DARK },
         ]}
@@ -99,6 +102,17 @@ const styles = StyleSheet.create({
     color: WHITE,
     paddingLeft: 20,
     paddingRight: 70,
+  },
+  shadow: {
+    shadowColor: BLACK,
+    ...Platform.select({
+      ios: {
+        shadowOffset: { width: 2, height: 4 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+      },
+      android: { elevation: 5 },
+    }),
   },
 });
 
