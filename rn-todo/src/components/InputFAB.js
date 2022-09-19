@@ -27,12 +27,24 @@ const InputFAB = () => {
 
   const open = () => {
     setIsOpened(true);
-    inputRef.current.focus();
+    Animated.timing(inputWidth, {
+      toValue: windowWidth - 20,
+      useNativeDriver: false,
+      duration: 300,
+    }).start(() => {
+      inputRef.current.focus();
+    });
   };
 
   const close = () => {
     setIsOpened(false);
-    inputRef.current.blur();
+    Animated.timing(inputWidth, {
+      toValue: BUTTON_WIDTH,
+      useNativeDriver: false,
+      duration: 300,
+    }).start(() => {
+      inputRef.current.blur();
+    });
   };
 
   const onPressButton = () => (isOpened ? close() : open());
@@ -57,8 +69,11 @@ const InputFAB = () => {
         style={[
           styles.container,
           styles.shadow,
-          { bottom: keyboardHeight, alignItems: 'flex-start' },
-          isOpened && { width: windowWidth - 20 },
+          {
+            bottom: keyboardHeight,
+            alignItems: 'flex-start',
+            width: inputWidth,
+          },
         ]}
       >
         <TextInput
