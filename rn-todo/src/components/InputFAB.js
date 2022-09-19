@@ -1,4 +1,5 @@
 import {
+  Animated,
   Keyboard,
   Platform,
   Pressable,
@@ -13,6 +14,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useRef, useState } from 'react';
 
 const BOTTOM = 30;
+const BUTTON_WIDTH = 60;
 
 const InputFAB = () => {
   const [text, setText] = useState('');
@@ -20,6 +22,8 @@ const InputFAB = () => {
   const inputRef = useRef(null);
   const windowWidth = useWindowDimensions().width;
   const [keyboardHeight, setKeyboardHeight] = useState(BOTTOM);
+
+  const inputWidth = useRef(new Animated.Value(BUTTON_WIDTH)).current;
 
   const open = () => {
     setIsOpened(true);
@@ -49,7 +53,7 @@ const InputFAB = () => {
 
   return (
     <>
-      <View
+      <Animated.View
         style={[
           styles.container,
           styles.shadow,
@@ -69,7 +73,7 @@ const InputFAB = () => {
           returnKeyType={'done'}
           onBlur={close}
         />
-      </View>
+      </Animated.View>
 
       <Pressable
         onPress={onPressButton}
@@ -91,9 +95,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: BOTTOM,
     right: 10,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: BUTTON_WIDTH,
+    height: BUTTON_WIDTH,
+    borderRadius: BUTTON_WIDTH / 2,
     backgroundColor: PRIMARY.DEFAULT,
     justifyContent: 'center',
     alignItems: 'center',
@@ -101,7 +105,7 @@ const styles = StyleSheet.create({
   input: {
     color: WHITE,
     paddingLeft: 20,
-    paddingRight: 70,
+    paddingRight: BUTTON_WIDTH + 10,
   },
   shadow: {
     shadowColor: BLACK,
