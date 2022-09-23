@@ -1,6 +1,7 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { AuthRoutes } from '../navigations/routes';
+import Input, { InputTypes } from '../components/Input';
 
 const SignInScreen = ({ navigation }) => {
   return (
@@ -10,6 +11,15 @@ const SignInScreen = ({ navigation }) => {
         title="signup"
         onPress={() => navigation.navigate(AuthRoutes.SIGN_UP)}
       />
+
+      {/* <Input
+        title={'EMAIL'}
+        placeholder={'your@email.com'}
+        iconName={'email'}
+        keyboardType={KeyboardTypes.EMAIL}
+      /> */}
+      <Input inputType={InputTypes.EMAIL} />
+      <Input inputType={InputTypes.PASSWORD} />
     </View>
   );
 };
