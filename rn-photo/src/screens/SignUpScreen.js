@@ -1,4 +1,4 @@
-import { Image, Keyboard, StyleSheet, View } from 'react-native';
+import { Image, Keyboard, ScrollView, StyleSheet, View } from 'react-native';
 import Input, { InputTypes, ReturnKeyTypes } from '../components/Input';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../components/Button';
@@ -48,8 +48,9 @@ const SignUpScreen = () => {
           />
         </View>
 
-        <View
-          style={[styles.form, { paddingBottom: bottom ? bottom + 10 : 40 }]}
+        <ScrollView
+          style={[styles.form, { paddingBottom: bottom ? bottom : 10 + 40 }]}
+          contentContainerStyle={{ alignItems: 'center' }}
         >
           <Input
             inputType={InputTypes.EMAIL}
@@ -94,7 +95,7 @@ const SignUpScreen = () => {
             title={'SIGNIN'}
             onPress={() => navigate(AuthRoutes.SIGN_IN)}
           />
-        </View>
+        </ScrollView>
       </View>
     </SafeInputView>
   );
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   form: {
-    alignItems: 'center',
+    flexGrow: 0,
     backgroundColor: WHITE,
     paddingHorizontal: 20,
     paddingTop: 40,
