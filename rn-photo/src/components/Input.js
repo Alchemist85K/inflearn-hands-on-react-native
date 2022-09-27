@@ -7,6 +7,13 @@ import { GRAY, PRIMARY } from '../colors';
 export const InputTypes = {
   EMAIL: 'EMAIL',
   PASSWORD: 'PASSWORD',
+  PASSWORD_CONFIRM: 'PASSWORD_CONFIRM',
+};
+
+const PasswordProps = {
+  keyboardType: 'default',
+  secureTextEntry: true,
+  iconName: { active: 'lock', inactive: 'lock-outline' },
 };
 
 const InputTypeProps = {
@@ -20,9 +27,12 @@ const InputTypeProps = {
   PASSWORD: {
     title: 'PASSWORD',
     placeholder: 'PASSWORD',
-    keyboardType: 'default',
-    secureTextEntry: true,
-    iconName: { active: 'lock', inactive: 'lock-outline' },
+    ...PasswordProps,
+  },
+  PASSWORD_CONFIRM: {
+    title: 'PASSWORD_CONFIRM',
+    placeholder: 'PASSWORD_CONFIRM',
+    ...PasswordProps,
   },
 };
 
