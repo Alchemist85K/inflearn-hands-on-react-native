@@ -22,6 +22,12 @@ const SignInScreen = () => {
   const { navigate } = useNavigation();
 
   useEffect(() => {
+    console.log('SignIn Mount');
+
+    return () => console.log('SignIn Unmount');
+  }, []);
+
+  useEffect(() => {
     setDisabled(!email || !password);
   }, [email, password]);
 
