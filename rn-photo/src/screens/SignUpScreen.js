@@ -24,12 +24,6 @@ const SignUpScreen = () => {
   const { navigate } = useNavigation();
 
   useEffect(() => {
-    console.log('SignUp Mount');
-
-    return () => console.log('SignUp Unmount');
-  }, []);
-
-  useEffect(() => {
     setDisabled(!email || !password || password !== passwordConfirm);
   }, [email, password, passwordConfirm]);
 
