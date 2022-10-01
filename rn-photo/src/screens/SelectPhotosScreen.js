@@ -1,18 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { WHITE } from '../colors';
 import { MainRoutes } from '../navigations/routes';
 
-const HomeScreen = () => {
+const SelectPhotosScreen = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>HomeScreen</Text>
+      <Text style={styles.title}>SelectPhotosScreen</Text>
 
       <Button
-        title={'select'}
-        onPress={() => navigation.navigate(MainRoutes.SELECT_PHOTOS)}
+        title={'tab'}
+        onPress={() => navigation.navigate(MainRoutes.CONTENT_TAB)}
       />
     </View>
   );
@@ -23,11 +22,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: WHITE,
   },
   title: {
     fontSize: 30,
   },
 });
 
-export default HomeScreen;
+export default SelectPhotosScreen;

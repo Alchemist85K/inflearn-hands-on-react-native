@@ -50,7 +50,7 @@ const Navigation = () => {
 
   return (
     <NavigationContainer onReady={onReady}>
-      {user.uid ? <ContentTab /> : <AuthStack />}
+      {user.uid ? <MainStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
