@@ -4,6 +4,8 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged as onAuthStateChangedFirebase,
+  signOut as signOutFirebase,
+  updateProfile,
 } from 'firebase/auth';
 
 export const getAuthErrorMessages = (errorCode) => {
@@ -39,4 +41,16 @@ export const signUp = async ({ email, password }) => {
 
 export const onAuthStateChanged = (callback) => {
   return onAuthStateChangedFirebase(getAuth(), callback);
+};
+
+export const signOut = async () => {
+  await signOutFirebase(getAuth());
+};
+
+export const updateUserInfo = async (userInfo) => {
+  try {
+    await updateProfile(getAuth().currentUser, userInfo);
+  } catch (e) {
+    throw new Error('사용자 정보 수정에 실패했습니다.');
+  }
 };
