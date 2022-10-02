@@ -39,6 +39,12 @@ export const signUp = async ({ email, password }) => {
     email,
     password
   );
+
+  await updateUserInfo({
+    displayName: email.split('@')[0].slice(0, 10),
+    photoURL: PHOTO_URL,
+  });
+
   return user;
 };
 
@@ -50,7 +56,7 @@ export const signOut = async () => {
   await signOutFirebase(getAuth());
 };
 
-export const updateUserInfo = async (userInfo) => {
+const updateUserInfo = async (userInfo) => {
   try {
     await updateProfile(getAuth().currentUser, userInfo);
   } catch (e) {
