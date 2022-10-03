@@ -56,7 +56,7 @@ export const signOut = async () => {
   await signOutFirebase(getAuth());
 };
 
-const updateUserInfo = async (userInfo) => {
+export const updateUserInfo = async (userInfo) => {
   try {
     await updateProfile(getAuth().currentUser, userInfo);
   } catch (e) {
