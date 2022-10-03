@@ -11,7 +11,7 @@ export const AlertTypes = {
 const DangerAlertProps = {
   SIGNOUT: {
     iconName: 'logout-variant',
-    title: '로그이웃',
+    title: '로그아웃',
     message: '정말 로그아웃 하시겠습니까?',
   },
 };
