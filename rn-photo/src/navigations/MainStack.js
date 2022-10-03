@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { WHITE } from '../colors';
 import SelectPhotosScreen from '../screens/SelectPhotosScreen';
+import UpdateProfileScreen from '../screens/UpdateProfileScreen';
 import ContentTab from './ContentTab';
 import { MainRoutes } from './routes';
 
@@ -18,6 +19,10 @@ const MainStack = () => {
       <Stack.Screen
         name={MainRoutes.SELECT_PHOTOS}
         component={SelectPhotosScreen}
+      />
+      <Stack.Screen
+        name={MainRoutes.UPDATE_PROFILE}
+        component={UpdateProfileScreen}
       />
     </Stack.Navigator>
   );
