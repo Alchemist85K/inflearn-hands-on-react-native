@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { WHITE } from '../colors';
+import HeaderLeft from '../components/HeaderLeft';
 import SelectPhotosScreen from '../screens/SelectPhotosScreen';
 import UpdateProfileScreen from '../screens/UpdateProfileScreen';
 import ContentTab from './ContentTab';
@@ -12,10 +13,15 @@ const MainStack = () => {
     <Stack.Navigator
       screenOptions={{
         contentStyle: { backgroundColor: WHITE },
-        headerShown: false,
+        title: '',
+        headerLeft: HeaderLeft,
       }}
     >
-      <Stack.Screen name={MainRoutes.CONTENT_TAB} component={ContentTab} />
+      <Stack.Screen
+        name={MainRoutes.CONTENT_TAB}
+        component={ContentTab}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name={MainRoutes.SELECT_PHOTOS}
         component={SelectPhotosScreen}
