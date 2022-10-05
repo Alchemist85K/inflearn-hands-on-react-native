@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   Alert,
   Keyboard,
@@ -19,12 +19,23 @@ import { MainRoutes } from '../navigations/routes';
 
 const UpdateProfileScreen = () => {
   const navigation = useNavigation();
+  const { params } = useRoute();
 
   const [user, setUser] = useUserState();
 
+  const [photo, setPhoto] = useState({ uri: user.photoURL });
   const [displayName, setDisplayName] = useState(user.displayName);
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (params) {
+      const { selectedPhotos } = params;
+      if (selectedPhotos?.length) {
+        setPhoto(selectedPhotos[0]);
+      }
+    }
+  }, [params]);
 
   const onSubmit = useCallback(async () => {
     Keyboard.dismiss();
@@ -58,7 +69,7 @@ const UpdateProfileScreen = () => {
     <SafeInputView>
       <View style={styles.container}>
         <View>
-          <FastImage source={{ uri: user.photoURL }} style={styles.photo} />
+          <FastImage source={{ uri: photo.uri }} style={styles.photo} />
           <Pressable
             onPress={() => navigation.navigate(MainRoutes.IMAGE_PICKER)}
             style={styles.imageButton}
