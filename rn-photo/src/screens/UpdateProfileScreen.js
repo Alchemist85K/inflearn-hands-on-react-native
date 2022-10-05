@@ -35,7 +35,6 @@ const UpdateProfileScreen = () => {
     if (params) {
       const { selectedPhotos } = params;
       if (selectedPhotos?.length) {
-        console.log(selectedPhotos[0]);
         setPhoto(selectedPhotos[0]);
       }
     }
@@ -46,19 +45,20 @@ const UpdateProfileScreen = () => {
     if (!disabled) {
       setIsLoading(true);
       try {
-        const localUri = Platform.select({
-          ios: await getLocalUri(photo.id),
-          android: photo.uri,
-        });
+        const localUri = photo.id
+          ? Platform.select({
+              ios: await getLocalUri(photo.id),
+              android: photo.uri,
+            })
+          : photo.uri;
         const photoURL = await uploadPhoto(localUri);
-        console.log(photoURL);
-        setIsLoading(false);
-        // const userInfo = { displayName };
 
-        // await updateUserInfo(userInfo);
-        // setUser((prev) => ({ ...prev, ...userInfo }));
+        const userInfo = { displayName, photoURL };
 
-        // navigation.goBack();
+        await updateUserInfo(userInfo);
+        setUser((prev) => ({ ...prev, ...userInfo }));
+
+        navigation.goBack();
       } catch (e) {
         Alert.alert('사용자 수정 실패', e.message);
         setIsLoading(false);
