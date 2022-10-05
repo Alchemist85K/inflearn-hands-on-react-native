@@ -18,6 +18,7 @@ import { updateUserInfo } from '../api/auth';
 import SafeInputView from '../components/SafeInputView';
 import { MainRoutes } from '../navigations/routes';
 import { getLocalUri } from '../components/ImagePicker';
+import { uploadPhoto } from '../api/storage';
 
 const UpdateProfileScreen = () => {
   const navigation = useNavigation();
@@ -49,7 +50,8 @@ const UpdateProfileScreen = () => {
           ios: await getLocalUri(photo.id),
           android: photo.uri,
         });
-        console.log(localUri);
+        const photoURL = await uploadPhoto(localUri);
+        console.log(photoURL);
         setIsLoading(false);
         // const userInfo = { displayName };
 
