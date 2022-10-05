@@ -5,6 +5,10 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import PhotoItem from './PhotoItem';
 
+export const getLocalUri = async (id) => {
+  return (await MediaLibrary.getAssetInfoAsync(id)).localUri;
+};
+
 const initListInfo = { endCursor: '', hasNextPage: true };
 
 const ImagePicker = ({ togglePhoto, isSelectedPhoto }) => {

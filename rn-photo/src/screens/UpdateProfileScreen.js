@@ -2,6 +2,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   Alert,
   Keyboard,
+  Platform,
   Pressable,
   StyleSheet,
   TextInput,
@@ -16,6 +17,7 @@ import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { updateUserInfo } from '../api/auth';
 import SafeInputView from '../components/SafeInputView';
 import { MainRoutes } from '../navigations/routes';
+import { getLocalUri } from '../components/ImagePicker';
 
 const UpdateProfileScreen = () => {
   const navigation = useNavigation();
@@ -32,6 +34,7 @@ const UpdateProfileScreen = () => {
     if (params) {
       const { selectedPhotos } = params;
       if (selectedPhotos?.length) {
+        console.log(selectedPhotos[0]);
         setPhoto(selectedPhotos[0]);
       }
     }
@@ -42,18 +45,24 @@ const UpdateProfileScreen = () => {
     if (!disabled) {
       setIsLoading(true);
       try {
-        const userInfo = { displayName };
+        const localUri = Platform.select({
+          ios: await getLocalUri(photo.id),
+          android: photo.uri,
+        });
+        console.log(localUri);
+        setIsLoading(false);
+        // const userInfo = { displayName };
 
-        await updateUserInfo(userInfo);
-        setUser((prev) => ({ ...prev, ...userInfo }));
+        // await updateUserInfo(userInfo);
+        // setUser((prev) => ({ ...prev, ...userInfo }));
 
-        navigation.goBack();
+        // navigation.goBack();
       } catch (e) {
         Alert.alert('사용자 수정 실패', e.message);
         setIsLoading(false);
       }
     }
-  }, [disabled, displayName, navigation, setUser]);
+  }, [disabled, displayName, navigation, setUser, photo.id, photo.uri]);
 
   useEffect(() => {
     setDisabled(!displayName || isLoading);

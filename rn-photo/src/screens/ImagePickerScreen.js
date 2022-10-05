@@ -11,7 +11,8 @@ const ImagePickerScreen = () => {
   const stateRoutes = useNavigationState((state) => state.routes);
 
   const onConfirm = useCallback(() => {
-    const prevScreenName = stateRoutes.at(-2).name;
+    // const prevScreenName = stateRoutes.at(-2).name;
+    const prevScreenName = stateRoutes[stateRoutes.length - 2].name;
     navigation.navigate(prevScreenName, { selectedPhotos });
   }, [navigation, selectedPhotos, stateRoutes]);
 
