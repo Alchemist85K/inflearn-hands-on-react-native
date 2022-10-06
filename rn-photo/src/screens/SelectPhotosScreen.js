@@ -1,7 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   Alert,
-  Image,
   Platform,
   Pressable,
   StyleSheet,
@@ -15,8 +14,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import HeaderRight from '../components/HeaderRight';
 import { getLocalUri } from '../components/ImagePicker';
-import Swiper from 'react-native-swiper';
-import { BlurView } from 'expo-blur';
+import ImageSwiper from '../components/ImageSwiper';
 
 const SelectPhotosScreen = () => {
   const navigation = useNavigation();
@@ -77,24 +75,7 @@ const SelectPhotosScreen = () => {
 
       <View style={{ width, height: width }}>
         {photos.length ? (
-          <Swiper>
-            {photos.map(({ uri }, idx) => (
-              <View key={idx} style={styles.photo}>
-                <Image
-                  source={{ uri }}
-                  resizeMode={'cover'}
-                  style={StyleSheet.absoluteFillObject}
-                />
-                <BlurView intensity={Platform.select({ ios: 10, android: 90 })}>
-                  <Image
-                    source={{ uri }}
-                    resizeMode={'contain'}
-                    style={styles.photo}
-                  />
-                </BlurView>
-              </View>
-            ))}
-          </Swiper>
+          <ImageSwiper photos={photos} />
         ) : (
           <Pressable
             onPress={() =>
@@ -129,10 +110,6 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  photo: {
-    width: '100%',
-    height: '100%',
   },
 });
 
