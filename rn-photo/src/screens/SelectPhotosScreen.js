@@ -1,6 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   Alert,
+  Image,
   Platform,
   Pressable,
   StyleSheet,
@@ -14,6 +15,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import HeaderRight from '../components/HeaderRight';
 import { getLocalUri } from '../components/ImagePicker';
+import Swiper from 'react-native-swiper';
+import { BlurView } from 'expo-blur';
 
 const SelectPhotosScreen = () => {
   const navigation = useNavigation();
@@ -51,7 +54,6 @@ const SelectPhotosScreen = () => {
             })
           )
         );
-        console.log(localUris);
       } catch (e) {
         Alert.alert('사진 정보 조회 실패', e.message);
       }
@@ -74,18 +76,39 @@ const SelectPhotosScreen = () => {
       </Text>
 
       <View style={{ width, height: width }}>
-        <Pressable
-          onPress={() =>
-            navigation.navigate(MainRoutes.IMAGE_PICKER, { maxCount: 4 })
-          }
-          style={styles.photoButton}
-        >
-          <MaterialCommunityIcons
-            name="image-plus"
-            size={80}
-            color={GRAY.DEFAULT}
-          />
-        </Pressable>
+        {photos.length ? (
+          <Swiper>
+            {photos.map(({ uri }, idx) => (
+              <View key={idx} style={styles.photo}>
+                <Image
+                  source={{ uri }}
+                  resizeMode={'cover'}
+                  style={StyleSheet.absoluteFillObject}
+                />
+                <BlurView intensity={Platform.select({ ios: 10, android: 90 })}>
+                  <Image
+                    source={{ uri }}
+                    resizeMode={'contain'}
+                    style={styles.photo}
+                  />
+                </BlurView>
+              </View>
+            ))}
+          </Swiper>
+        ) : (
+          <Pressable
+            onPress={() =>
+              navigation.navigate(MainRoutes.IMAGE_PICKER, { maxCount: 4 })
+            }
+            style={styles.photoButton}
+          >
+            <MaterialCommunityIcons
+              name="image-plus"
+              size={80}
+              color={GRAY.DEFAULT}
+            />
+          </Pressable>
+        )}
       </View>
     </View>
   );
@@ -106,6 +129,10 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  photo: {
+    width: '100%',
+    height: '100%',
   },
 });
 
