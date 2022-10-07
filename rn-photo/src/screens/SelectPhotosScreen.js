@@ -44,7 +44,7 @@ const SelectPhotosScreen = () => {
     if (!disabled) {
       setIsLoading(true);
       try {
-        const localUris = await Promise.all(
+        const photoUris = await Promise.all(
           photos.map((photo) =>
             Platform.select({
               ios: getLocalUri(photo.id),
@@ -52,6 +52,7 @@ const SelectPhotosScreen = () => {
             })
           )
         );
+        navigation.navigate(MainRoutes.WRITE_TEXT, { photoUris });
       } catch (e) {
         Alert.alert('사진 정보 조회 실패', e.message);
       }

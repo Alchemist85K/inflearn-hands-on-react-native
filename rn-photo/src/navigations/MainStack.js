@@ -4,6 +4,7 @@ import HeaderLeft from '../components/HeaderLeft';
 import ImagePickerScreen from '../screens/ImagePickerScreen';
 import SelectPhotosScreen from '../screens/SelectPhotosScreen';
 import UpdateProfileScreen from '../screens/UpdateProfileScreen';
+import WriteTextScreen from '../screens/WriteTextScreen';
 import ContentTab from './ContentTab';
 import { MainRoutes } from './routes';
 
@@ -35,6 +36,7 @@ const MainStack = () => {
         name={MainRoutes.IMAGE_PICKER}
         component={ImagePickerScreen}
       />
+      <Stack.Screen name={MainRoutes.WRITE_TEXT} component={WriteTextScreen} />
     </Stack.Navigator>
   );
 };
