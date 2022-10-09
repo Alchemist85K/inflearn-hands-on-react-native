@@ -1,12 +1,15 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
   useWindowDimensions,
   View,
 } from 'react-native';
+import { createPost } from '../api/post';
+import { uploadPhoto } from '../api/storage';
 import { GRAY } from '../colors';
 import FastImage from '../components/FastImage';
 import HeaderRight from '../components/HeaderRight';
@@ -34,12 +37,25 @@ const WriteTextScreen = () => {
     setPhotoUris(params?.photoUris ?? []);
   }, [params?.photoUris]);
 
-  const onSubmit = useCallback(() => {
+  const onSubmit = useCallback(async () => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-  }, []);
+    try {
+      const photos = await Promise.all(
+        photoUris.map((uri) => uploadPhoto(uri))
+      );
+
+      await createPost({ photos, location, text });
+
+      navigation.goBack();
+    } catch (e) {
+      Alert.alert('글 작성 실패', e.message, [
+        {
+          text: '확인',
+          onPress: () => setIsLoading(false),
+        },
+      ]);
+    }
+  }, [location, photoUris, text, navigation]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
