@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { memo } from 'react';
 import ImageSwiper from './ImageSwiper';
 import FastImage from './FastImage';
-import { PRIMARY, WHITE } from '../colors';
+import { GRAY, PRIMARY, WHITE } from '../colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const PostItem = memo(({ post }) => {
@@ -16,7 +16,9 @@ const PostItem = memo(({ post }) => {
           source={{ uri: post.user.photoURL }}
           style={styles.profilePhoto}
         />
-        <Text style={styles.nickname}>{post.user.displayName}</Text>
+        <Text style={styles.nickname}>
+          {post.user.displayName ?? 'nickname'}
+        </Text>
       </View>
 
       <View style={{ width, height: width }}>
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
+    backgroundColor: GRAY.LIGHT,
   },
   nickname: {
     paddingHorizontal: 10,
