@@ -4,9 +4,10 @@ import { GRAY } from '../colors';
 import usePosts from '../hooks/usePosts';
 import { useEffect } from 'react';
 import event, { EventTypes } from '../event';
+import PropTypes from 'prop-types';
 
-const PostList = () => {
-  const { data, fetchNextPage, refetch, refetching } = usePosts();
+const PostList = ({ isMine }) => {
+  const { data, fetchNextPage, refetch, refetching } = usePosts(isMine);
 
   useEffect(() => {
     event.addListener(EventTypes.REFRESH, refetch);
@@ -25,6 +26,14 @@ const PostList = () => {
       refreshing={refetching}
     />
   );
+};
+
+PostList.defaultProps = {
+  isMine: false,
+};
+
+PostList.propTypes = {
+  isMine: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
