@@ -14,6 +14,7 @@ import { GRAY } from '../colors';
 import FastImage from '../components/FastImage';
 import HeaderRight from '../components/HeaderRight';
 import LocationSearch from '../components/LocationSearch';
+import event, { EventTypes } from '../event';
 
 const MAX_TEXT_LENGTH = 60;
 
@@ -45,6 +46,7 @@ const WriteTextScreen = () => {
       );
 
       await createPost({ photos, location, text });
+      event.emit(EventTypes.REFRESH);
 
       navigation.goBack();
     } catch (e) {
