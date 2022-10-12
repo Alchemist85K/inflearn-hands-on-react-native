@@ -25,11 +25,15 @@ const usePosts = (isMine) => {
     setRefetching(false);
   };
 
+  const deletePost = ({ id }) => {
+    setData((prev) => prev.filter((item) => item.id !== id));
+  };
+
   useEffect(() => {
     fetchNextPage();
   }, [fetchNextPage]);
 
-  return { data, fetchNextPage, refetch, refetching };
+  return { data, fetchNextPage, refetch, refetching, deletePost };
 };
 
 export default usePosts;

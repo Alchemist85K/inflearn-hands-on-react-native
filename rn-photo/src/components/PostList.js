@@ -7,13 +7,15 @@ import event, { EventTypes } from '../event';
 import PropTypes from 'prop-types';
 
 const PostList = ({ isMine }) => {
-  const { data, fetchNextPage, refetch, refetching } = usePosts(isMine);
+  const { data, fetchNextPage, refetch, refetching, deletePost } =
+    usePosts(isMine);
 
   useEffect(() => {
     event.addListener(EventTypes.REFRESH, refetch);
+    event.addListener(EventTypes.DELETE, deletePost);
 
     return () => event.removeAllListeners();
-  }, [refetch]);
+  }, [refetch, deletePost]);
 
   return (
     <FlatList

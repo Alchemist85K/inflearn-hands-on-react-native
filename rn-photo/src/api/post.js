@@ -1,6 +1,7 @@
 import { getAuth } from 'firebase/auth';
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   getFirestore,
@@ -65,4 +66,8 @@ export const getPosts = async ({ after, isMine }) => {
   const last = documentSnapshot.docs[documentSnapshot.docs.length - 1];
 
   return { list, last };
+};
+
+export const deletePost = async (id) => {
+  await deleteDoc(doc(getFirestore(), `posts/${id}`));
 };
