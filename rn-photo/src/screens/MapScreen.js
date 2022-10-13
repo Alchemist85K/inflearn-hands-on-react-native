@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LocationPostList from '../components/LocationPostList';
 import LocationSearch from '../components/LocationSearch';
 
 const MapScreen = () => {
@@ -33,7 +34,6 @@ const MapScreen = () => {
         }}
         iconVisible={false}
         onPress={(data, detail) => {
-          console.log(data, detail);
           const {
             geometry: {
               location: { lat, lng },
@@ -48,6 +48,12 @@ const MapScreen = () => {
           }));
         }}
       />
+
+      {location.name && (
+        <View style={styles.list}>
+          <LocationPostList location={location.name} />
+        </View>
+      )}
     </View>
   );
 };
@@ -65,6 +71,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '90%',
     borderBottomWidth: 0,
+  },
+  list: {
+    position: 'absolute',
+    width: '100%',
+    paddingHorizontal: 10,
+    bottom: 40,
   },
 });
 
