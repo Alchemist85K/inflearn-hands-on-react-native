@@ -29,11 +29,15 @@ const usePosts = (isMine) => {
     setData((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const updatePost = ({ post }) => {
+    setData((prev) => prev.map((item) => (item.id === post.id ? post : item)));
+  };
+
   useEffect(() => {
     fetchNextPage();
   }, [fetchNextPage]);
 
-  return { data, fetchNextPage, refetch, refetching, deletePost };
+  return { data, fetchNextPage, refetch, refetching, deletePost, updatePost };
 };
 
 export default usePosts;

@@ -1,5 +1,11 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   Alert,
   StyleSheet,
@@ -8,7 +14,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { createPost } from '../api/post';
+import { createPost, updatePost } from '../api/post';
 import { uploadPhoto } from '../api/storage';
 import { GRAY } from '../colors';
 import FastImage from '../components/FastImage';
@@ -30,34 +36,53 @@ const WriteTextScreen = () => {
   const [disabled, setDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  const locationRef = useRef(null);
+
   useEffect(() => {
     setDisabled(isLoading || !text);
   }, [text, isLoading]);
 
   useEffect(() => {
-    setPhotoUris(params?.photoUris ?? []);
-  }, [params?.photoUris]);
+    if (params) {
+      const { photoUris, post } = params;
+
+      if (photoUris) {
+        setPhotoUris(params.photoUris);
+      } else if (post) {
+        setPhotoUris(post.photos);
+        setText(post.text);
+        setLocation(post.location);
+        locationRef.current?.setAddressText(post.location);
+      }
+    }
+  }, [params]);
 
   const onSubmit = useCallback(async () => {
     setIsLoading(true);
     try {
-      const photos = await Promise.all(
-        photoUris.map((uri) => uploadPhoto(uri))
-      );
+      if (params?.photoUris) {
+        const photos = await Promise.all(
+          photoUris.map((uri) => uploadPhoto(uri))
+        );
 
-      await createPost({ photos, location, text });
-      event.emit(EventTypes.REFRESH);
-
+        await createPost({ photos, location, text });
+        event.emit(EventTypes.REFRESH);
+      } else if (params?.post) {
+        const { post } = params;
+        const updatedPost = { ...post, text, location };
+        await updatePost(updatedPost);
+        event.emit(EventTypes.UPDATE, { post: updatedPost });
+      }
       navigation.goBack();
     } catch (e) {
-      Alert.alert('글 작성 실패', e.message, [
+      Alert.alert(e.message, [
         {
           text: '확인',
           onPress: () => setIsLoading(false),
         },
       ]);
     }
-  }, [location, photoUris, text, navigation]);
+  }, [location, photoUris, text, navigation, params]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -78,6 +103,7 @@ const WriteTextScreen = () => {
       </View>
 
       <LocationSearch
+        ref={locationRef}
         onPress={({ description }) => setLocation(description)}
         isLoading={isLoading}
         isSelected={!!location}

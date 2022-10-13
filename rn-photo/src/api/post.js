@@ -14,18 +14,22 @@ import {
 } from 'firebase/firestore';
 
 export const createPost = async ({ photos, location, text }) => {
-  const { uid, displayName, photoURL } = getAuth().currentUser;
-  const collectionRef = collection(getFirestore(), 'posts');
-  const documentRef = doc(collectionRef);
-  const id = documentRef.id;
-  await setDoc(documentRef, {
-    id,
-    photos,
-    location,
-    text,
-    user: { uid, displayName, photoURL },
-    createdTs: Date.now(),
-  });
+  try {
+    const { uid, displayName, photoURL } = getAuth().currentUser;
+    const collectionRef = collection(getFirestore(), 'posts');
+    const documentRef = doc(collectionRef);
+    const id = documentRef.id;
+    await setDoc(documentRef, {
+      id,
+      photos,
+      location,
+      text,
+      user: { uid, displayName, photoURL },
+      createdTs: Date.now(),
+    });
+  } catch (e) {
+    throw new Error('글 작성 실패');
+  }
 };
 
 const getOption = ({ after, isMine }) => {
@@ -70,4 +74,12 @@ export const getPosts = async ({ after, isMine }) => {
 
 export const deletePost = async (id) => {
   await deleteDoc(doc(getFirestore(), `posts/${id}`));
+};
+
+export const updatePost = async (post) => {
+  try {
+    await setDoc(doc(getFirestore(), `posts/${post.id}`), post);
+  } catch (e) {
+    throw new Error('글 수정 실패');
+  }
 };
