@@ -49,6 +49,8 @@
 
 ## 수정 내용
 
+- 2024-05-08
+  - [Expo 51 적용](https://github.com/Alchemist85K/inflearn-hands-on-react-native/commit/a69b7cf)
 - 2023-03-21
   - [Expo 48 부터 Firebase onAuthStateChanged 적용 안되는 문제 수정](https://github.com/Alchemist85K/inflearn-hands-on-react-native/commit/790f232)
 
