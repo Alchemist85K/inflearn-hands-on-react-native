@@ -11,7 +11,12 @@ const Colors = {
   OPERATOR: ['#f59e0b', '#b45309'],
 };
 
-const Button = ({ title, onPress, buttonStyle, buttonType }) => {
+const Button = ({
+  title,
+  onPress,
+  buttonStyle,
+  buttonType = ButtonTypes.NUMBER,
+}) => {
   return (
     <Pressable
       onPress={onPress}
@@ -25,10 +30,6 @@ const Button = ({ title, onPress, buttonStyle, buttonType }) => {
       <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
-};
-
-Button.defaultProps = {
-  buttonType: ButtonTypes.NUMBER,
 };
 
 Button.propTypes = {

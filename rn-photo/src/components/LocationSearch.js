@@ -7,7 +7,7 @@ import { GRAY, PRIMARY } from '../colors';
 import { forwardRef } from 'react';
 
 const LocationSearch = forwardRef(
-  ({ styles, onPress, isLoading, isSelected, iconVisible }, ref) => {
+  ({ styles, onPress, isLoading, isSelected, iconVisible = true }, ref) => {
     return (
       <View style={[defaultStyles.container, styles?.container]}>
         <GooglePlacesAutocomplete
@@ -43,10 +43,6 @@ const LocationSearch = forwardRef(
   }
 );
 LocationSearch.displayName = 'LocationSearch';
-
-LocationSearch.defaultProps = {
-  iconVisible: true,
-};
 
 LocationSearch.propTypes = {
   styles: PropTypes.object,

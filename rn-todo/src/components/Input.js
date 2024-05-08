@@ -20,7 +20,17 @@ export const IconNames = {
 };
 
 const Input = forwardRef(
-  ({ title, placeholder, value, iconName, ...props }, ref) => {
+  (
+    {
+      title,
+      placeholder,
+      value,
+      iconName,
+      returnKeyType = ReturnKeyTypes.DONE,
+      ...props
+    },
+    ref
+  ) => {
     const [isFocused, setIsFocused] = useState(false);
 
     return (
@@ -51,6 +61,7 @@ const Input = forwardRef(
             autoCorrect={false}
             textContentType={'none'}
             keyboardAppearance={'light'}
+            returnKeyType={returnKeyType}
             onBlur={() => setIsFocused(false)}
             onFocus={() => setIsFocused(true)}
           />
@@ -78,15 +89,12 @@ const Input = forwardRef(
 );
 Input.displayName = 'Input';
 
-Input.defaultProps = {
-  returnKeyType: ReturnKeyTypes.DONE,
-};
-
 Input.propTypes = {
   title: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string,
   iconName: PropTypes.oneOf(Object.values(IconNames)),
+  returnKeyType: PropTypes.oneOf(Object.values(ReturnKeyTypes)),
 };
 
 const styles = StyleSheet.create({

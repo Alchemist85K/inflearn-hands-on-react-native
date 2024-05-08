@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import event, { EventTypes } from '../event';
 import PropTypes from 'prop-types';
 
-const PostList = ({ isMine }) => {
+const PostList = ({ isMine = false }) => {
   const { data, fetchNextPage, refetch, refetching, deletePost, updatePost } =
     usePosts(isMine);
 
@@ -29,10 +29,6 @@ const PostList = ({ isMine }) => {
       refreshing={refetching}
     />
   );
-};
-
-PostList.defaultProps = {
-  isMine: false,
 };
 
 PostList.propTypes = {

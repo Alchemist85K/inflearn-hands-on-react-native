@@ -26,7 +26,7 @@ const Button = ({
   disabled,
   isLoading,
   styles,
-  buttonType,
+  buttonType = ButtonTypes.PRIMARY,
 }) => {
   const Colors = ButtonTypeColors[buttonType];
 
@@ -60,10 +60,6 @@ const Button = ({
       </Pressable>
     </View>
   );
-};
-
-Button.defaultProps = {
-  buttonType: ButtonTypes.PRIMARY,
 };
 
 Button.propTypes = {
